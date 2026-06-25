@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest tests/"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "author": "",
   "license": "MIT",
@@ -16,5 +19,8 @@
     "pg": "^8.8.0",
     "socket.io": "^4.7.2",
     "stoppable": "^1.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
