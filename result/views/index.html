@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body ng-controller="statsCtrl" >
+    <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
      <div id="background-stats">
        <div id="background-stats-1">
        </div><!--
@@ -39,5 +40,37 @@
     <script src="socket.io.js"></script>
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
+    <script>
+      (function() {
+        var toggle = document.getElementById('theme-toggle');
+        var body = document.body;
+
+        function applyTheme(theme) {
+          if (theme === 'dark') {
+            body.classList.add('dark');
+            toggle.textContent = '☀️';
+            toggle.setAttribute('aria-label', 'Switch to light mode');
+          } else {
+            body.classList.remove('dark');
+            toggle.textContent = '🌙';
+            toggle.setAttribute('aria-label', 'Switch to dark mode');
+          }
+        }
+
+        var saved = localStorage.getItem('theme');
+        if (saved) {
+          applyTheme(saved);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          applyTheme('dark');
+        }
+
+        toggle.addEventListener('click', function() {
+          var isDark = body.classList.contains('dark');
+          var next = isDark ? 'light' : 'dark';
+          localStorage.setItem('theme', next);
+          applyTheme(next);
+        });
+      })();
+    </script>
   </body>
 </html>
