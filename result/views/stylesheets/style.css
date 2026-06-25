@@ -1,5 +1,22 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,600);
 
+/* ── Theme variables ── */
+:root {
+  --result-panel-bg: #fff;
+  --result-panel-shadow: #fff;
+  --divider-color: #C0C9CE;
+  --toggle-bg: #254356;
+  --toggle-color: #fff;
+}
+
+body.dark {
+  --result-panel-bg: #2a2f38;
+  --result-panel-shadow: #2a2f38;
+  --divider-color: #4a5a6a;
+  --toggle-bg: #e2eaf0;
+  --toggle-color: #1a1e24;
+}
+
 *{
   box-sizing:border-box;
 }
@@ -17,11 +34,12 @@ body{
 .divider{
   height: 150px;
   width:2px;
-  background-color: #C0C9CE;
+  background-color: var(--divider-color);
   position: relative;
   top: 50%;
   float: left;
   transform: translateY(-50%);
+  transition: background-color 0.3s ease;
 }
 
 #background-stats-1{
@@ -30,6 +48,14 @@ body{
 
 #background-stats-2{
   background-color: #00cbca;
+}
+
+body.dark #background-stats-1{
+  background-color: #1565c0;
+}
+
+body.dark #background-stats-2{
+  background-color: #008080;
 }
 
 #content-container{
@@ -59,8 +85,8 @@ body{
 #choice{
   transition: all 300ms linear;
   line-height:1.3em;
-  background:#fff;
-  box-shadow: 10px 0 0 #fff, -10px 0 0 #fff;
+  background: var(--result-panel-bg);
+  box-shadow: 10px 0 0 var(--result-panel-shadow), -10px 0 0 var(--result-panel-shadow);
   vertical-align:middle;
   font-size:40px;
   font-weight: 600;
@@ -109,4 +135,28 @@ body{
   margin-bottom:-4px;
   width:50%;
   height:100%;
+}
+
+/* ── Dark mode toggle button ── */
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  background: var(--toggle-bg);
+  color: var(--toggle-color);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+#theme-toggle:hover {
+  opacity: 0.85;
 }
