@@ -4,9 +4,34 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     app = express(),
     server = require('http').Server(app),
-    io = require('socket.io')(server);
+    io = require('socket.io')(server),
+    redis = require('redis');
 
 var port = process.env.PORT || 4000;
+
+var defaultOptionA = process.env.OPTION_A || 'USA';
+var defaultOptionB = process.env.OPTION_B || 'France';
+
+var redisClient = redis.createClient({ socket: { host: 'redis', port: 6379 } });
+redisClient.on('error', function(err) {
+  console.error('Redis error: ' + err);
+});
+redisClient.connect().catch(function(err) {
+  console.error('Redis connect error: ' + err);
+});
+
+async function getLabels() {
+  try {
+    var a = await redisClient.get('option_a');
+    var b = await redisClient.get('option_b');
+    return {
+      option_a: a || defaultOptionA,
+      option_b: b || defaultOptionB
+    };
+  } catch (e) {
+    return { option_a: defaultOptionA, option_b: defaultOptionB };
+  }
+}
 
 io.on('connection', function (socket) {
 
@@ -41,12 +66,13 @@ async.retry(
 );
 
 function getVotes(client) {
-  client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function(err, result) {
+  client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], async function(err, result) {
     if (err) {
       console.error("Error performing query: " + err);
     } else {
       var votes = collectVotesFromResult(result);
-      io.sockets.emit("scores", JSON.stringify(votes));
+      var labels = await getLabels();
+      io.sockets.emit("scores", JSON.stringify(Object.assign({}, votes, labels)));
     }
 
     setTimeout(function() {getVotes(client) }, 1000);

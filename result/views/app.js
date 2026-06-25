@@ -1,4 +1,4 @@
-var app = angular.module('taiwanvsromania', []);
+var app = angular.module('votingapp', []);
 var socket = io.connect();
 
 var bg1 = document.getElementById('background-stats-1');
@@ -7,6 +7,8 @@ var bg2 = document.getElementById('background-stats-2');
 app.controller('statsCtrl', function($scope){
   $scope.aPercent = 50;
   $scope.bPercent = 50;
+  $scope.optionA = '';
+  $scope.optionB = '';
 
   var updateScores = function(){
     socket.on('scores', function (json) {
@@ -23,6 +25,8 @@ app.controller('statsCtrl', function($scope){
          $scope.aPercent = percentages.a;
          $scope.bPercent = percentages.b;
          $scope.total = a + b;
+         $scope.optionA = data.option_a || $scope.optionA;
+         $scope.optionB = data.option_b || $scope.optionB;
        });
     });
   };

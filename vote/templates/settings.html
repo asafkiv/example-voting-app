@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Voting Settings</title>
+    <base href="/index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}" />
+    <style>
+      #settings-container {
+        max-width: 480px;
+        margin: 80px auto;
+        background: #fff;
+        border-radius: 8px;
+        padding: 40px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      }
+      #settings-container h2 {
+        margin-bottom: 24px;
+        font-size: 1.6em;
+        color: #3d3d3d;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #555;
+      }
+      .form-group input[type="text"] {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+        box-sizing: border-box;
+      }
+      .btn-save {
+        background: #e85a35;
+        color: #fff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+      }
+      .btn-save:hover {
+        background: #c44a25;
+      }
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        border-radius: 4px;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #e85a35;
+        text-decoration: none;
+      }
+      .back-link:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div id="settings-container">
+      <h2>Vote Settings</h2>
+
+      {% if saved %}
+      <div class="alert-success">
+        Settings saved! Labels updated to <strong>{{ option_a }}</strong> vs <strong>{{ option_b }}</strong>.
+      </div>
+      {% endif %}
+
+      <form method="POST" action="/settings">
+        <div class="form-group">
+          <label for="option_a">Option A Label</label>
+          <input type="text" id="option_a" name="option_a" value="{{ option_a }}" maxlength="64" required>
+        </div>
+        <div class="form-group">
+          <label for="option_b">Option B Label</label>
+          <input type="text" id="option_b" name="option_b" value="{{ option_b }}" maxlength="64" required>
+        </div>
+        <button type="submit" class="btn-save">Save Settings</button>
+      </form>
+
+      <a class="back-link" href="/">← Back to voting</a>
+    </div>
+  </body>
+</html>
