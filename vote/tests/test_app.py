@@ -68,6 +68,12 @@ class VoteAppTestCase(unittest.TestCase):
         html = response.data.decode('utf-8')
         self.assertIn(vote_app.option_b, html)
 
+    def test_default_option_a_is_modiin(self):
+        self.assertEqual(vote_app.option_a, 'Modiin')
+
+    def test_default_option_b_is_tel_aviv(self):
+        self.assertEqual(vote_app.option_b, 'Tel Aviv')
+
 
 if __name__ == '__main__':
     unittest.main()
