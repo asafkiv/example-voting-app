@@ -8,7 +8,6 @@
   },
   "jest": {
     "testEnvironment": "node"
-    "test": "node tests/test_dark_mode.js"
   },
   "author": "",
   "license": "MIT",

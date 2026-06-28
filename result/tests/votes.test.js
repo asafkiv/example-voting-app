@@ -103,14 +103,14 @@ describe('dynamic UI update sequence', () => {
     expect(scope.total).toBe(0);
   });
 
-  test('first vote for USA updates totals and percentages', () => {
+  test('first vote for Greece updates totals and percentages', () => {
     var scope = simulateUpdate({}, { a: 1, b: 0 });
     expect(scope.total).toBe(1);
     expect(scope.aPercent).toBe(100);
     expect(scope.bPercent).toBe(0);
   });
 
-  test('first vote for France updates totals and percentages', () => {
+  test('first vote for Turkey updates totals and percentages', () => {
     var scope = simulateUpdate({}, { a: 0, b: 1 });
     expect(scope.total).toBe(1);
     expect(scope.aPercent).toBe(0);
