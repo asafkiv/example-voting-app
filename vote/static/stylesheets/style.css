@@ -1,14 +1,42 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,600);
 
+/* ── Theme variables ── */
+:root {
+  --bg-color: #F7F8F9;
+  --text-primary: #254356;
+  --text-secondary: #8f9ea8;
+  --text-tip: #c0c9ce;
+  --btn-a-bg: #1aaaf8;
+  --btn-a-hover: #1488c6;
+  --btn-b-bg: #00cbca;
+  --btn-b-hover: #00a2a1;
+  --toggle-bg: #254356;
+  --toggle-color: #F7F8F9;
+}
+
+body.dark {
+  --bg-color: #1a1e24;
+  --text-primary: #e2eaf0;
+  --text-secondary: #8fa8b8;
+  --text-tip: #5a7080;
+  --btn-a-bg: #1488c6;
+  --btn-a-hover: #0f6fa6;
+  --btn-b-bg: #009b9a;
+  --btn-b-hover: #007a79;
+  --toggle-bg: #e2eaf0;
+  --toggle-color: #1a1e24;
+}
+
 *{
   box-sizing:border-box;
 }
 html,body{
   margin: 0;
   padding: 0;
-  background-color: #F7F8F9;
+  background-color: var(--bg-color);
   height: 100vh;
   font-family: 'Open Sans';
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button{
@@ -28,16 +56,16 @@ button i{
 }
 
 button.a{
-  background-color: #1aaaf8;
+  background-color: var(--btn-a-bg);
 }
 
 button.b{
-  background-color: #00cbca;
+  background-color: var(--btn-b-bg);
 }
 
 #tip{
   text-align: left;
-  color: #c0c9ce;
+  color: var(--text-tip);
   font-size: 14px;
 }
 
@@ -46,7 +74,7 @@ button.b{
   bottom: 100px;
   right: 0;
   left: 0;
-  color: #8f9ea8;
+  color: var(--text-secondary);
   font-size: 24px;
 }
 
@@ -65,7 +93,7 @@ button.b{
 }
 
 #content-container-center h3{
-  color: #254356;
+  color: var(--text-primary);
 }
 
 #choice{
@@ -96,22 +124,23 @@ button.b{
   margin-bottom: 10px;
   text-align: left;
   padding-left: 50px;
+  transition: background-color 0.3s ease;
 }
 
 #choice button.a:hover{
-  background-color: #1488c6;
+  background-color: var(--btn-a-hover);
 }
 
 #choice button.b:hover{
-  background-color: #00a2a1;
+  background-color: var(--btn-b-hover);
 }
 
 #choice button.a:focus{
-  background-color: #1488c6;
+  background-color: var(--btn-a-hover);
 }
 
 #choice button.b:focus{
-  background-color: #00a2a1;
+  background-color: var(--btn-b-hover);
 }
 
 #background-stats{
@@ -126,4 +155,28 @@ button.b{
   margin-bottom:-4px;
   width:50%;
   height:100%;
+}
+
+/* ── Dark mode toggle button ── */
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  background: var(--toggle-bg);
+  color: var(--toggle-color);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+#theme-toggle:hover {
+  opacity: 0.85;
 }
